@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/jordwest/imap-server/mailstore"
+	"github.com/revapost/imap-server/mailstore"
 )
 
 type command struct {
@@ -51,7 +51,7 @@ func init() {
 	sequenceSet := "[\\d\\:\\*\\,]+"
 
 	registerCommand("(?i:CAPABILITY)", cmdCapability)
-	registerCommand("(?i:LOGIN) \"([A-z0-9]+)\" \"([A-z0-9]+)\"", cmdLogin)
+	registerCommand("(?i:LOGIN) \"?([A-z0-9@.]+)\"? \"?([^\"]+)\"?", cmdLogin)
 	registerCommand("(?i:AUTHENTICATE PLAIN)", cmdAuthPlain)
 	registerCommand("(?i:LIST) \"?([A-z0-9]+)?\"? \"?([A-z0-9*]+)?\"?", cmdList)
 	registerCommand("(?i:LSUB)", cmdLSub)
@@ -63,6 +63,8 @@ func init() {
 	registerCommand("(?i:EXAMINE) \"?([A-z0-9]+)\"?", cmdExamine)
 	registerCommand("(?i:STATUS) \"?([A-z0-9/]+)\"? \\(([A-z\\s]+)\\)", cmdStatus)
 	registerCommand("((?i)UID )?(?i:FETCH) ("+sequenceSet+") \\(([A-z0-9\\s\\(\\)\\[\\]\\.-]+)\\)", cmdFetch)
+	// iOS Apple mail ...
+	registerCommand("((?i)UID )?(?i:SEARCH) ("+sequenceSet+") ([A-z0-9\\s\\(\\)\\[\\]\\.-]+)", cmdSearch)
 
 	// APPEND "INBOX" (\Seen) {310}
 	// APPEND "INBOX" (\Seen) "21-Jun-2015 01:00:25 +0900" {310}
