@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/jordwest/imap-server/mailstore"
-	"github.com/jordwest/imap-server/types"
+	"github.com/revapost/imap-server/mailstore"
+	"github.com/revapost/imap-server/types"
 )
 
 const storeArgUID int = 0

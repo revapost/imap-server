@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jordwest/imap-server/mailstore"
+	"github.com/revapost/imap-server/mailstore"
 )
 
 func TestDataRace(t *testing.T) {

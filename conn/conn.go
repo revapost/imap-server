@@ -7,7 +7,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/jordwest/imap-server/mailstore"
+	"github.com/revapost/imap-server/mailstore"
 )
 
 type connState int

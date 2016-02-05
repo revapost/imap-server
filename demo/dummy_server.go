@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	imap "github.com/jordwest/imap-server"
-	"github.com/jordwest/imap-server/mailstore"
+	imap "github.com/revapost/imap-server"
+	"github.com/revapost/imap-server/mailstore"
 )
 
 func main() {

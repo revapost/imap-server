@@ -1,8 +1,8 @@
 package conn_test
 
 import (
-	"github.com/jordwest/imap-server/conn"
-	"github.com/jordwest/imap-server/mailstore"
+	"github.com/revapost/imap-server/conn"
+	"github.com/revapost/imap-server/mailstore"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

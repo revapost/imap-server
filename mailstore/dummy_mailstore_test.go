@@ -3,7 +3,7 @@ package mailstore
 import (
 	"testing"
 
-	"github.com/jordwest/imap-server/types"
+	"github.com/revapost/imap-server/types"
 )
 
 func getDefaultInbox(t *testing.T) *DummyMailbox {

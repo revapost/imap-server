@@ -7,9 +7,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/jordwest/imap-server/mailstore"
-	"github.com/jordwest/imap-server/types"
-	"github.com/jordwest/imap-server/util"
+	"github.com/revapost/imap-server/mailstore"
+	"github.com/revapost/imap-server/types"
+	"github.com/revapost/imap-server/util"
 )
 
 const (
@@ -213,7 +213,7 @@ func fetchBody(args []string, c *Conn, m mailstore.Message, peekOnly bool) strin
 }
 
 func fetchFullText(args []string, c *Conn, m mailstore.Message, peekOnly bool) string {
-	mail := fmt.Sprintf("%s\r\n%s\r\n", util.MIMEHeaderToString(m.Header()), m.Body())
+	mail := fmt.Sprintf("%s%s\r\n", util.MIMEHeaderToString(m.Header()), m.Body())
 	mailLen := len(mail)
 
 	return fmt.Sprintf("BODY[] {%d}\r\n%s",
