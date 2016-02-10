@@ -63,6 +63,7 @@ func init() {
 	registerCommand("(?i:EXAMINE) \"?([A-z0-9]+)\"?", cmdExamine)
 	registerCommand("(?i:STATUS) \"?([A-z0-9/]+)\"? \\(([A-z\\s]+)\\)", cmdStatus)
 	registerCommand("((?i)UID )?(?i:FETCH) ("+sequenceSet+") \\(([A-z0-9\\s\\(\\)\\[\\]\\.-]+)\\)", cmdFetch)
+	registerCommand("((?i)UID )?(?i:FETCH) ("+sequenceSet+") ([A-z0-9\\s\\(\\)\\[\\]\\.-]+)", cmdFetch)
 	// iOS Apple mail ...
 	registerCommand("((?i)UID )?(?i:SEARCH) ("+sequenceSet+") ([A-z0-9\\s\\(\\)\\[\\]\\.-]+)", cmdSearch)
 
@@ -97,7 +98,7 @@ func writeMailboxInfo(c *Conn, m mailstore.Mailbox) {
 	fmt.Fprintf(c, "* %d RECENT\r\n", m.Recent())
 	fmt.Fprintf(c, "* OK [UNSEEN %d]\r\n", m.Unseen())
 	fmt.Fprintf(c, "* OK [UIDNEXT %d]\r\n", m.NextUID())
-	fmt.Fprintf(c, "* OK [UIDVALIDITY %d]\r\n", 250)
+	fmt.Fprintf(c, "* OK [UIDVALIDITY %d]\r\n", 83475983475395)
 	fmt.Fprintf(c, "* FLAGS (\\Answered \\Flagged \\Deleted \\Seen \\Draft)\r\n")
 }
 

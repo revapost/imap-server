@@ -43,6 +43,7 @@ func init() {
 		"\\[HEADER\\.FIELDS \\(([A-z\\s-]+)\\)\\]", fetchHeaderSpecificFields)
 	registerFetchParam("BODY(?:\\.PEEK)?\\[TEXT\\]", fetchBody)
 	registerFetchParam("BODY(?:\\.PEEK)?\\[\\]", fetchFullText)
+	registerFetchParam("BODYSTRUCTURE", fetchBodyStructure)
 }
 
 func cmdFetch(args commandArgs, c *Conn) {
@@ -65,11 +66,14 @@ func cmdFetch(args commandArgs, c *Conn) {
 	} else {
 		msgs = c.SelectedMailbox.MessageSetBySequenceNumber(seqSet)
 	}
+	var fetchParamString string
 
-	fetchParamString := args.Arg(fetchArgParams)
-	if searchByUID && !strings.Contains(fetchParamString, "UID") {
-		fetchParamString += " UID"
+
+	if searchByUID && !strings.Contains(args.Arg(fetchArgParams), "UID") {
+		fetchParamString += "UID "
 	}
+
+	fetchParamString += args.Arg(fetchArgParams)
 
 	for _, msg := range msgs {
 		fetchParams, err := fetch(fetchParamString, c, msg)
@@ -98,11 +102,11 @@ func cmdFetch(args commandArgs, c *Conn) {
 		c.writeResponse("", fullReply)
 	}
 
-	if searchByUID {
-		c.writeResponse(args.ID(), "OK UID FETCH Completed")
-	} else {
+	//if searchByUID {
+	//	c.writeResponse(args.ID(), "OK UID FETCH Completed")
+	//} else {
 		c.writeResponse(args.ID(), "OK FETCH Completed")
-	}
+	//}
 }
 
 // Fetch requested params from a given message
@@ -171,9 +175,9 @@ func fetchHeaders(args []string, c *Conn, m mailstore.Message, peekOnly bool) st
 	hdrLen := len(hdr)
 
 	peekStr := ""
-	if peekOnly {
-		peekStr = ".PEEK"
-	}
+	//if peekOnly {
+	//	peekStr = ".PEEK"
+	//}
 
 	return fmt.Sprintf("BODY%s[HEADER] {%d}\r\n%s", peekStr, hdrLen, hdr)
 }
@@ -218,4 +222,12 @@ func fetchFullText(args []string, c *Conn, m mailstore.Message, peekOnly bool) s
 
 	return fmt.Sprintf("BODY[] {%d}\r\n%s",
 		mailLen, mail)
+}
+
+func fetchBodyStructure(args []string, c *Conn, m mailstore.Message, peekOnly bool) string {
+	body := fmt.Sprintf("%s\r\n", m.BodyStructure())
+	bodyLen := len(body)
+
+	return fmt.Sprintf("BODYSTRUCTURE {%d}\r\n%s",
+		bodyLen, body)
 }

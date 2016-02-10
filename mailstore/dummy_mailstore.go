@@ -387,6 +387,11 @@ func (m *DummyMessage) Body() string {
 	return m.body
 }
 
+// Body returns the structure of the message full body
+func (m *DummyMessage) BodyStructure() string {
+	return m.body // TODO : Should return the structure, not the body
+}
+
 // Keywords returns any keywords associated with the message
 func (m *DummyMessage) Keywords() []string {
 	var f []string

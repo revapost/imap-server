@@ -89,6 +89,9 @@ type Message interface {
 	// Return the body of the email
 	Body() string
 
+	// Return the structure of the email body
+	BodyStructure() string
+
 	// Return the list of custom keywords/flags for this message
 	Keywords() []string
 
